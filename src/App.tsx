@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Button } from './components/Button';
 import { Modal } from './components/Modal';
-import { OverlayContainer, OverlayProvider } from 'react-aria';
+import { FocusScope, OverlayContainer, OverlayProvider } from 'react-aria';
 import { MenuButton } from './components/DropdownMenu';
 import { Item } from 'react-stately';
+import { ToggleButton } from './components/ToggleButton';
 
 function App() {
   const [activeModal, setActiveModal] = useState<'a11yModal' | null>(null);
@@ -22,8 +23,9 @@ function App() {
             marginBottom: 20,
           }}
         >
-          <Button onPress={openA11yModal}>Open Modal</Button>
+          <Button onPress={openA11yModal}>Open modal</Button>
           <Button>Random button</Button>
+          <ToggleButton>Toggle button</ToggleButton>
         </div>
 
         {isA11yModalOpen && (
