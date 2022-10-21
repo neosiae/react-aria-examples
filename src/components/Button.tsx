@@ -3,14 +3,16 @@ import { useButton, AriaButtonProps } from 'react-aria';
 
 export interface ButtonProps extends AriaButtonProps {
   children: React.ReactNode;
+  buttonRef?: React.RefObject<HTMLButtonElement>;
 }
 
-export const Button = ({ children, ...props }: ButtonProps) => {
+export const Button = ({ children, buttonRef, ...props }: ButtonProps) => {
   const ref = useRef<HTMLButtonElement | null>(null);
-  const { buttonProps } = useButton(props, ref);
+  const _ref = buttonRef ?? ref;
+  const { buttonProps } = useButton(props, _ref);
 
   return (
-    <button {...buttonProps} ref={ref}>
+    <button {...buttonProps} ref={_ref}>
       {children}
     </button>
   );
