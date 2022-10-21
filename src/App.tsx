@@ -48,6 +48,7 @@ function App() {
             </Modal>
           </OverlayContainer>
         )}
+
         <MenuButton label="Dropdown menu" onAction={alert}>
           <Item key="copy">Copy</Item>
           <Item key="cut">Cut</Item>
