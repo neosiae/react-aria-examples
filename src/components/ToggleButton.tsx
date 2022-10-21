@@ -16,10 +16,10 @@ export const ToggleButton = ({ children, ...props }: ToggleButtonProps) => {
       style={{
         background: isPressed
           ? state.isSelected
-            ? 'darkgreen'
+            ? 'darkblue'
             : 'gray'
           : state.isSelected
-          ? 'green'
+          ? 'blue'
           : 'lightgray',
         color: state.isSelected ? 'white' : 'black',
         padding: 10,
