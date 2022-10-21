@@ -75,8 +75,10 @@ const Menu = ({ ...props }: MenuProps) => {
   );
 };
 
+type Item = ReturnType<TreeState<HTMLUListElement>['collection']['getItem']>;
+
 export interface MenuItemProps extends AriaMenuTriggerProps {
-  item: any;
+  item: Item;
   state: TreeState<HTMLUListElement>;
 }
 

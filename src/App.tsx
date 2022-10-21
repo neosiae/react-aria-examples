@@ -14,16 +14,12 @@ function App() {
 
   return (
     <OverlayProvider>
-      <div
-        style={{
-          display: 'flex',
-          gap: 20,
-        }}
-      >
+      <div>
         <div
           style={{
             display: 'flex',
             gap: 20,
+            marginBottom: 20,
           }}
         >
           <Button onPress={openA11yModal}>Open Modal</Button>
