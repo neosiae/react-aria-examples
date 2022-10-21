@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from './components/Button';
 import { Modal } from './components/Modal';
-import { FocusScope, OverlayContainer, OverlayProvider } from 'react-aria';
+import { OverlayContainer, OverlayProvider } from 'react-aria';
 import { MenuButton } from './components/DropdownMenu';
 import { Item } from 'react-stately';
 import { ToggleButton } from './components/ToggleButton';
