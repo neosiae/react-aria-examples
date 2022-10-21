@@ -5,6 +5,7 @@ import { OverlayContainer, OverlayProvider } from 'react-aria';
 import { MenuButton } from './components/DropdownMenu';
 import { Item } from 'react-stately';
 import { ToggleButton } from './components/ToggleButton';
+import { NumberField } from './components/NumberField';
 
 function App() {
   const [activeModal, setActiveModal] = useState<'a11yModal' | null>(null);
@@ -54,6 +55,22 @@ function App() {
           <Item key="cut">Cut</Item>
           <Item key="paste">Paste</Item>
         </MenuButton>
+
+        <div
+          style={{
+            marginTop: '1rem',
+          }}
+        >
+          <NumberField
+            label="Price"
+            defaultValue={1}
+            locale="en-US"
+            formatOptions={{
+              style: 'currency',
+              currency: 'USD',
+            }}
+          />
+        </div>
       </div>
     </OverlayProvider>
   );
