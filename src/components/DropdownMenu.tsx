@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import {
   useMenuTrigger,
   useMenu,
@@ -7,14 +7,11 @@ import {
   AriaMenuTriggerProps,
   AriaMenuOptions,
 } from 'react-aria';
-import {
-  MenuTriggerProps,
-  TreeProps,
-  TreeState,
-  useMenuTriggerState,
-  useTreeState,
-} from 'react-stately';
+import { MenuTriggerProps, TreeProps, TreeState } from 'react-stately';
+import { useTriggerState } from '../state/useTriggerButtonState';
 import { Button } from './Button';
+import { TreeStateExtended } from '../state/types';
+import { useTreeStateExtended } from '../state/useTreeStateExtended';
 
 export interface MenuButtonProps
   extends MenuTriggerProps,
@@ -24,7 +21,7 @@ export interface MenuButtonProps
 }
 
 export const MenuButton = ({ label, children, ...props }: MenuButtonProps) => {
-  const state = useMenuTriggerState(props);
+  const state = useTriggerState();
   const ref = React.useRef<HTMLButtonElement | null>(null);
   const { menuTriggerProps, menuProps } = useMenuTrigger({}, state, ref);
 
@@ -53,25 +50,84 @@ export interface MenuProps
     TreeProps<HTMLUListElement> {}
 
 const Menu = ({ ...props }: MenuProps) => {
-  const state = useTreeState(props);
+  const state = useTreeStateExtended(props);
   const ref = React.useRef<HTMLUListElement | null>(null);
   const { menuProps } = useMenu(props, state, ref);
 
   return (
-    <ul
-      {...menuProps}
-      ref={ref}
+    <div
       style={{
-        margin: 0,
-        padding: 0,
-        listStyle: 'none',
-        width: 150,
+        border: '1px solid #ccc',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
       }}
     >
-      {[...state.collection].map((item) => (
-        <MenuItem key={item.key} item={item} state={state} />
-      ))}
-    </ul>
+      <div
+        style={{
+          marginTop: 10,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Button
+          onPress={() => {
+            state.toggleInfoVisibility();
+          }}
+        >
+          Show info
+        </Button>
+      </div>
+      <ul
+        {...menuProps}
+        ref={ref}
+        style={{
+          margin: 0,
+          padding: 0,
+          listStyle: 'none',
+          width: 150,
+        }}
+      >
+        {[...state.collection].map((item) => (
+          <MenuItem key={item.key} item={item} state={state} />
+        ))}
+      </ul>
+      {state.isInfoVisible && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{
+              padding: 20,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Button
+              onPress={() => {
+                state.toggleInfoVisibility();
+              }}
+            >
+              X
+            </Button>
+            Some info goes here
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -79,7 +135,7 @@ type Item = ReturnType<TreeState<HTMLUListElement>['collection']['getItem']>;
 
 export interface MenuItemProps extends AriaMenuTriggerProps {
   item: Item;
-  state: TreeState<HTMLUListElement>;
+  state: TreeStateExtended<HTMLUListElement>;
 }
 
 const MenuItem = ({ item, state, ...props }: MenuItemProps) => {

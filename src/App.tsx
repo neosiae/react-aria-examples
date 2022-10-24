@@ -3,12 +3,14 @@ import { Button } from './components/Button';
 import { Modal } from './components/Modal';
 import { OverlayContainer, OverlayProvider } from 'react-aria';
 import { MenuButton } from './components/DropdownMenu';
-import { Item } from 'react-stately';
 import { ToggleButton } from './components/ToggleButton';
 import { NumberField } from './components/NumberField';
+import { Item } from 'react-stately';
 
 function App() {
-  const [activeModal, setActiveModal] = useState<'a11yModal' | null>(null);
+  const [activeModal, setActiveModal] = useState<
+    'a11yModal' | 'newModal' | null
+  >(null);
   const isA11yModalOpen = activeModal === 'a11yModal';
 
   const openA11yModal = () => setActiveModal('a11yModal');
